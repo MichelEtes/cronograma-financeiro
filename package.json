@@ -18,7 +18,8 @@
     "db:reset": "npm run db:reset -w @cf/api",
     "db:studio": "npm run db:studio -w @cf/api",
     "e2e": "playwright test",
-    "e2e:install": "playwright install chromium"
+    "e2e:install": "playwright install chromium",
+    "vercel-build": "npm run db:generate -w @cf/api && npm run db:deploy -w @cf/api && npm run build -w @cf/web"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

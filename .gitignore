@@ -32,3 +32,14 @@ apps/api/prisma/test.db*
 
 # Vercel
 .vercel
+
+# PWA (gerado em dev pelo vite-plugin-pwa)
+apps/web/dev-dist/
+
+# Agent skills instalados automaticamente pela integração Neon (tooling local, não é o app)
+.agents/
+.claude/skills/
+skills-lock.json
+
+.vercel
+.env*

@@ -5,7 +5,12 @@ import { RouterProvider } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import { router } from "./router";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { registerSW } from "virtual:pwa-register";
 import "./index.css";
+
+// Atualiza o app sozinho em segundo plano quando uma nova versão é publicada
+// (sem popup — na próxima abertura o usuário já vê a versão nova).
+registerSW({ immediate: true });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
