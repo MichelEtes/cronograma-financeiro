@@ -15,7 +15,9 @@ let appPromise: Promise<FastifyAppInstance> | null = null;
 function obterApp(): Promise<FastifyAppInstance> {
   if (!appPromise) {
     const app = construirApp();
-    appPromise = app.ready().then(() => app);
+    // Fastify tipa `.ready()` como PromiseLike (não Promise nativa) — normaliza com
+    // Promise.resolve() para bater com o tipo de `appPromise`.
+    appPromise = Promise.resolve(app.ready()).then(() => app);
   }
   return appPromise;
 }

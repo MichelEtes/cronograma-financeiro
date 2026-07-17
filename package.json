@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "npm run build -w @cf/shared && npm run build -w @cf/api",
-    "typecheck": "npm run typecheck -w @cf/shared && npm run typecheck -w @cf/api",
+    "typecheck": "npm run typecheck -w @cf/shared && npm run typecheck -w @cf/api && tsc --noEmit -p tsconfig.json",
     "test": "npm run test -w @cf/shared",
     "dev": "npm run dev -w @cf/api",
     "db:migrate": "npm run db:migrate -w @cf/api",
