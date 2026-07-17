@@ -10,14 +10,17 @@ const ITENS = [
 
 export function BottomNav() {
   return (
-    <nav className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white">
+    <nav
+      className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="mx-auto grid max-w-lg grid-cols-5">
         {ITENS.map((i) => (
           <NavLink
             key={i.to}
             to={i.to}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-0.5 py-2 text-xs ${
+              `flex flex-col items-center gap-0.5 py-2.5 text-xs ${
                 isActive ? "text-emerald-600" : "text-slate-500"
               }`
             }
