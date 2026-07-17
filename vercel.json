@@ -4,6 +4,7 @@
   "installCommand": "npm install",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/health", "destination": "/api" }
+    { "source": "/health", "destination": "/api" },
+    { "source": "/((?!assets|icons|manifest.webmanifest|sw.js|workbox-).*)", "destination": "/index.html" }
   ]
 }
