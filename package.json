@@ -1,0 +1,30 @@
+{
+  "name": "cronograma-financeiro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Planejamento financeiro preditivo (single-user, pt-BR, R$).",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @cf/shared && npm run build -w @cf/api",
+    "typecheck": "npm run typecheck -w @cf/shared && npm run typecheck -w @cf/api",
+    "test": "npm run test -w @cf/shared",
+    "dev": "npm run dev -w @cf/api",
+    "db:migrate": "npm run db:migrate -w @cf/api",
+    "db:generate": "npm run db:generate -w @cf/api",
+    "db:seed": "npm run db:seed -w @cf/api",
+    "db:reset": "npm run db:reset -w @cf/api",
+    "db:studio": "npm run db:studio -w @cf/api",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,115 @@
+// Cronograma Financeiro — schema Prisma
+// Dev: SQLite. Prod: trocar provider para "postgresql" + DATABASE_URL (sem mexer em regra de negócio).
+// Datas de negócio são String "YYYY-MM-DD" (data pura, sem fuso); timestamps são DateTime.
+// Valores monetários são Decimal no banco e convertidos para number na borda do motor.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Singleton: uma única linha (single-user, id fixo "singleton").
+model Config {
+  id                  String               @id @default("singleton")
+  saldoInicialConta   Decimal
+  dataInicial         String // "YYYY-MM-DD"
+  diaVencimentoFatura Int // 1–28 (validado no Zod)
+  reservaSeguranca    Decimal
+  saldoInicialCDB     Decimal
+  taxaCdbAnual        Decimal // % a.a.  (taxaCdbMensal é derivada, não persistida)
+  orcamentos          OrcamentoCategoria[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+}
+
+model OrcamentoCategoria {
+  id              String  @id @default(cuid())
+  categoria       String  @unique
+  orcamentoMensal Decimal // orcamentoDiario = /30 é derivado no motor
+  config          Config  @relation(fields: [configId], references: [id], onDelete: Cascade)
+  configId        String  @default("singleton")
+}
+
+model ReceitaFixaMensal {
+  id             String   @id @default(cuid())
+  descricao      String
+  valor          Decimal
+  diaRecebimento Int // 1–31 (dia inválido no mês → clamp no motor)
+  ativa          Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model SaidaFixa {
+  id            String   @id @default(cuid())
+  descricao     String
+  valor         Decimal
+  diaVencimento Int // 1–31 (mesma regra de clamp)
+  categoria     String
+  ativa         Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model CompraCartao {
+  id                  String   @id @default(cuid())
+  descricao           String
+  valorTotal          Decimal
+  numParcelas         Int // valorParcela = valorTotal/numParcelas (derivado)
+  dataPrimeiraParcela String // "YYYY-MM-DD"
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model EntradaExtra {
+  id         String   @id @default(cuid())
+  data       String // "YYYY-MM-DD"
+  descricao  String
+  valor      Decimal
+  confirmada Boolean  @default(false) // só entra no real se true
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([data])
+}
+
+model CenarioSimulado {
+  id        String   @id @default(cuid())
+  data      String // "YYYY-MM-DD"
+  descricao String
+  tipo      String // "entrada" | "saida"  (Zod valida; enum nativo ao migrar p/ Postgres)
+  valor     Decimal // sempre positivo; o sinal vem do tipo
+  incluir   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([data])
+}
+
+model LancamentoDiario {
+  id         String   @id @default(cuid())
+  data       String // "YYYY-MM-DD"
+  categoria  String // deve bater com uma OrcamentoCategoria (validado na API)
+  descricao  String
+  valorGasto Decimal
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([data])
+}
+
+model AporteCDB {
+  id         String   @id @default(cuid())
+  data       String // "YYYY-MM-DD"
+  tipo       String // "aporte" | "resgate"
+  valor      Decimal // sempre positivo
+  observacao String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([data])
+}
