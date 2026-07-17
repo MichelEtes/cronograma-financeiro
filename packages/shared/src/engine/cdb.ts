@@ -1,8 +1,8 @@
-import { arredondar } from "../dinheiro";
-import { adicionarMeses, diferencaEmDias, primeiroDiaDoMes, ultimoDiaDoMes } from "../datas";
-import type { MesProjetadoCdb, ResumoCdb } from "../types";
-import { gerarCronograma } from "./cronograma";
-import { type DadosMotor, type OpcoesCdb, MESES_PADRAO_CDB } from "./tipos";
+import { arredondar } from "../dinheiro.js";
+import { adicionarMeses, diferencaEmDias, primeiroDiaDoMes, ultimoDiaDoMes } from "../datas.js";
+import type { MesProjetadoCdb, ResumoCdb } from "../types.js";
+import { gerarCronograma } from "./cronograma.js";
+import { type DadosMotor, type OpcoesCdb, MESES_PADRAO_CDB } from "./tipos.js";
 
 /** Taxa mensal equivalente à taxa anual: (1 + anual/100)^(1/12) − 1. */
 export function taxaMensalCdb(taxaAnualPct: number): number {

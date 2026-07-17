@@ -9,7 +9,7 @@ import type {
   cenarioSimuladoSchema,
   lancamentoDiarioSchema,
   aporteCdbSchema,
-} from "./schemas";
+} from "./schemas.js";
 
 // --- Tipos de entrada (payloads já validados pelo Zod) -----------------------
 

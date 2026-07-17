@@ -1,6 +1,6 @@
-import { arredondar } from "../dinheiro";
-import { adicionarMeses, parseData, primeiroDiaDoMes } from "../datas";
-import type { CompraCartaoMotor } from "./tipos";
+import { arredondar } from "../dinheiro.js";
+import { adicionarMeses, parseData, primeiroDiaDoMes } from "../datas.js";
+import type { CompraCartaoMotor } from "./tipos.js";
 
 /** Valor da parcela = valorTotal / numParcelas, arredondado a centavos. */
 export function valorParcela(compra: CompraCartaoMotor): number {

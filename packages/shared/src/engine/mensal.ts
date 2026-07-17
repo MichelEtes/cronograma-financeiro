@@ -1,6 +1,6 @@
-import { arredondar } from "../dinheiro";
-import { primeiroDiaDoMes } from "../datas";
-import type { DiaProjetado, MesAgregado } from "../types";
+import { arredondar } from "../dinheiro.js";
+import { primeiroDiaDoMes } from "../datas.js";
+import type { DiaProjetado, MesAgregado } from "../types.js";
 
 /**
  * Agrega os dias do motor (4.1) em blocos de mês civil, para a visão "Saldos" (4.3).

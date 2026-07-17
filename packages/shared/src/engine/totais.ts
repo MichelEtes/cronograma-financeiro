@@ -1,6 +1,6 @@
-import { arredondar } from "../dinheiro";
-import { primeiroDiaDoMes } from "../datas";
-import type { DiaProjetado, TotaisMes } from "../types";
+import { arredondar } from "../dinheiro.js";
+import { primeiroDiaDoMes } from "../datas.js";
+import type { DiaProjetado, TotaisMes } from "../types.js";
 
 /**
  * Indicadores do dashboard "Totais" (Seção 5.1) para um mês, derivados dos dias do motor.

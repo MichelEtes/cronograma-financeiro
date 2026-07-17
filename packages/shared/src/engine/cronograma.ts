@@ -1,13 +1,13 @@
-import { arredondar } from "../dinheiro";
-import { adicionarDias, diaEfetivoNoMes, parseData } from "../datas";
-import type { DiaProjetado, PontoComparativo, StatusDia } from "../types";
-import { totalFaturaDoMes } from "./cartao";
+import { arredondar } from "../dinheiro.js";
+import { adicionarDias, diaEfetivoNoMes, parseData } from "../datas.js";
+import type { DiaProjetado, PontoComparativo, StatusDia } from "../types.js";
+import { totalFaturaDoMes } from "./cartao.js";
 import {
   type DadosMotor,
   type OpcoesCronograma,
   type OrcamentoMotor,
   HORIZONTE_PADRAO_DIAS,
-} from "./tipos";
+} from "./tipos.js";
 
 /**
  * Orçamento diário total = soma de (orcamentoMensal / 30) de cada categoria.
