@@ -13,6 +13,7 @@ import { prisma } from "./db/client.js";
 import { registrarConfig } from "./routes/config.js";
 import { registrarCrud } from "./routes/crud.js";
 import { registrarProjecoes } from "./routes/projecoes.js";
+import { registrarWhatsapp } from "./routes/whatsapp.js";
 import {
   mapReceita,
   mapSaida,
@@ -106,6 +107,11 @@ export function construirApp(): FastifyInstance {
         ordenarPor: { data: "asc" },
       });
       registrarProjecoes(api);
+
+      // Escopo próprio (register, não chamada direta): precisa de um content-type
+      // parser diferente (corpo bruto, para validar a assinatura HMAC do webhook) sem
+      // afetar o parser JSON normal usado pelas rotas acima.
+      await api.register(registrarWhatsapp);
     },
     { prefix: "/api/v1" },
   );
